@@ -51,6 +51,13 @@ public class MovementFollowCamera : MonoBehaviour
         {
             animator.SetBool("isMoving", false);
         }
+
     }
+
+    public void ChangeCamera(Transform newCamera)
+    {
+        cameraTransform = newCamera;
+    }
+
 }
 
