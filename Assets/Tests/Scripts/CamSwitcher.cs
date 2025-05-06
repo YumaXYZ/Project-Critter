@@ -3,14 +3,13 @@ using Cinemachine;
 
 public class CamSwitcher : MonoBehaviour
 {
-    public CinemachineVirtualCamera activeCam;
-    public Transform Player;
+    public CinemachineVirtualCamera activeCamara;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            activeCam.Priority = 1;
+            activeCamara.Priority = 1;
         }   
     }
 
@@ -18,7 +17,7 @@ public class CamSwitcher : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            activeCam.Priority = 1;
+            activeCamara.Priority = 0;
         }
     }
 }

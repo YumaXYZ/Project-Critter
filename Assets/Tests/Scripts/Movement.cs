@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput); // Creamos un vector direccion para controlar la direccion del personaje
         float magnitude = Mathf.Clamp01(movementDirection.magnitude) * characterSpeed;
-        movementDirection.Normalize(); // Normalizamos la direccion para que en caso de moverse en diagonal no se multiplique la velocidad mas de lo deseado
+       // movementDirection.Normalize(); // Normalizamos la direccion para que en caso de moverse en diagonal no se multiplique la velocidad mas de lo deseado
 
         characterController.SimpleMove(movementDirection * magnitude);
 
