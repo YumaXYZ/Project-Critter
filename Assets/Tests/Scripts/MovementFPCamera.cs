@@ -1,61 +1,88 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementFPCamera : MonoBehaviour
 {
-   public float moveSpeed = 5f;
-    public float rotationSpeed = 720f; // grados por segundo
-    public Transform cameraTransform; // Asigna aquí tu CinemachineVirtualCamera en el Inspector
+    [SerializeField] Transform playerCamera;
+    [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+    [SerializeField] bool cursorLock = true;
+    [SerializeField] float mouseSensitivity = 3.5f;
+    [SerializeField] float Speed = 6.0f;
+    [SerializeField][Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
+    [SerializeField] float gravity = -30f;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask ground;
 
-    private CharacterController characterController;
+    public float jumpHeight = 6f;
+    float velocityY;
+    bool isGrounded;
 
-    // Variables para controlar la rotación del cuerpo basada en la cámara
-    public float cameraRotationSpeed = 5f; // Ajusta la velocidad de rotación del cuerpo
+    float cameraCap;
+    Vector2 currentMouseDelta;
+    Vector2 currentMouseDeltaVelocity;
 
-    private void Start()
+    CharacterController controller;
+    Vector2 currentDir;
+    Vector2 currentDirVelocity;
+    Vector3 velocity;
+
+    void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
 
+        if (cursorLock)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
-    private void Update()
+    void Update()
     {
-        if (cameraTransform != null)
+        UpdateMouse();
+        UpdateMove();
+    }
+
+    void UpdateMouse()
+    {
+        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
+        currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
+
+        cameraCap -= currentMouseDelta.y * mouseSensitivity;
+
+        cameraCap = Mathf.Clamp(cameraCap, -90.0f, 90.0f);
+
+        playerCamera.localEulerAngles = Vector3.right * cameraCap;
+
+        transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity);
+    }
+
+    void UpdateMove()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
+
+        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        targetDir.Normalize();
+
+        currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
+
+        velocityY += gravity * 2f * Time.deltaTime;
+
+        Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * Speed + Vector3.up * velocityY;
+
+        controller.Move(velocity * Time.deltaTime);
+
+        if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            // Rotación del cuerpo basada en la rotación horizontal de la cámara
-            float mouseY = Input.GetAxis("Mouse Y");
-            float mouseX = Input.GetAxis("Mouse X");
+            velocityY = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
 
-            // Rotar la cámara (esto ya lo hace Cinemachine POV si lo estás usando)
-            // Si no usas Cinemachine POV para la rotación, descomenta estas líneas y ajusta la sensibilidad
-            /*
-            float cameraRotationX = cameraTransform.localEulerAngles.x - mouseY * cameraRotationSpeed;
-            cameraRotationX = Mathf.Clamp(cameraRotationX, -90f, 90f);
-            cameraTransform.localEulerAngles = new Vector3(cameraRotationX, cameraTransform.localEulerAngles.y, 0f);
-            */
-
-            // Rotar el cuerpo horizontalmente basado en el movimiento del ratón en X
-            transform.Rotate(Vector3.up * mouseX * cameraRotationSpeed);
-
-            // Movimiento del personaje basado en la orientación actual de la cámara
-            float h = Input.GetAxis("Horizontal");
-            float v = Input.GetAxis("Vertical");
-
-            Vector3 inputDirection = new Vector3(h, 0, v).normalized;
-
-            Vector3 camForward = cameraTransform.forward;
-            Vector3 camRight = cameraTransform.right;
-
-            camForward.y = 0;
-            camRight.y = 0;
-            camForward.Normalize();
-            camRight.Normalize();
-
-            Vector3 moveDirection = camForward * inputDirection.z + camRight * inputDirection.x;
-
-            characterController.SimpleMove(moveDirection * moveSpeed);
-
+        if (isGrounded! && controller.velocity.y < -1f)
+        {
+            velocityY = -8f;
         }
     }
 }
