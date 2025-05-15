@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tests/Models/cabin.fbm/painting texture.png.meta
 guid: e8878e253878db74bbba89e3549c8dc5
+========
+guid: f02e7da2ac3a61e43b47f5e720307eec
+>>>>>>>> vibes-check:Assets/Tests/Models/fence_txt.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

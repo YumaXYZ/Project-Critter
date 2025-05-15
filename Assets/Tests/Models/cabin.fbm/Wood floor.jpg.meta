@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tests/Models/cabin.fbm/Wood floor.jpg.meta
 guid: 08663ee4cdde33a419cc8fea5e494dbf
+========
+guid: 953f2aab226f87044bc1437f477f05b5
+>>>>>>>> vibes-check:Assets/Tests/Models/ground_txt.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

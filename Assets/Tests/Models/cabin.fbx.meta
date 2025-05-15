@@ -1,11 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Tests/Models/cabin.fbx.meta
 guid: 682f53645b682bf4e8cb69013ae5779b
+========
+guid: 5b5edd3eb359b8844a4e39585410944d
+>>>>>>>> vibes-check:Assets/Tests/Models/lanter.fbx.meta
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 0
