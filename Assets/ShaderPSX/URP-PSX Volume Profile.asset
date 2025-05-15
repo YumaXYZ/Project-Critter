@@ -12,61 +12,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4265a041954897941afec871c608473b, type: 3}
   m_Name: Crt
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   scanlinesWeight:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.2
   noiseWeight:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.2
   screenBendX:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 3
   screenBendY:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 3
   vignetteAmount:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.98
   vignetteSize:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 2.06
   vignetteRounding:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 5.26
   vignetteSmoothing:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.2
   scanlinesDensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 200
   scanlinesSpeed:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 200
   noiseAmount:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 250
   chromaticRed:
     m_OverrideState: 1
-    m_Value: {x: 0, y: 0}
+    m_Value: {x: 0.002, y: -0.002}
   chromaticGreen:
     m_OverrideState: 1
-    m_Value: {x: 0, y: 0}
+    m_Value: {x: -0.002, y: 0.002}
   chromaticBlue:
     m_OverrideState: 1
     m_Value: {x: 0, y: 0}
   grilleOpacity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.2
   grilleCounterOpacity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.3
   grilleResolution:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 640
   grilleCounterResolution:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 380
   grilleUvRotation:
     m_OverrideState: 1
     m_Value: 90
@@ -155,13 +155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32eb3b8fb939d9b41b04b5621e6d36dd, type: 3}
   m_Name: Fog
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   fogDensity:
     m_OverrideState: 1
-    m_Value: 9.1
+    m_Value: 10
   fogDistance:
     m_OverrideState: 1
-    m_Value: 462
+    m_Value: 4.7
   fogColor:
     m_OverrideState: 1
     m_Value: {r: 0, g: 0, b: 0, a: 0}
@@ -179,7 +179,7 @@ MonoBehaviour:
     m_Value: 10
   fogThinning:
     m_OverrideState: 0
-    m_Value: 227
+    m_Value: 458
   noiseScale:
     m_OverrideState: 1
     m_Value: 843
