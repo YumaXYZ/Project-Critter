@@ -18,13 +18,13 @@ public class PlayerInteractionCabin : MonoBehaviour
             {
                 if (collider.CompareTag(targetTag))
                 {
-                    //if (collider.TryGetComponent(out ItemInteractable itemInteractable))
-                    //{
-                    //    string itemMsg = itemInteractable.GetMessage();
-                    //    if (textBoxUI != null && !string.IsNullOrEmpty(itemMsg)) textBoxUI.ShowMessage(itemMsg);
-                    //    // itemInteractable.Interact();
-                    //}
-                    //// Debug.Log("Interacted with: " + collider.gameObject.name);   
+                    if (collider.TryGetComponent(out ItemInteractable itemInteractable))
+                    {
+                        string itemMsg = itemInteractable.GetMessage();
+                        if (textBoxUI != null && !string.IsNullOrEmpty(itemMsg)) textBoxUI.ShowMessage(itemMsg);
+                        // itemInteractable.Interact();
+                    }
+                    // Debug.Log("Interacted with: " + collider.gameObject.name);   
                 }
             }
         }

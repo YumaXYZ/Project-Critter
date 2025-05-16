@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerInteractCabin : MonoBehaviour
 {
+    public float interactRange = 2f;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            float interactRange = 2f;
+            
             Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
             foreach (Collider collider in colliderArray)
             {
@@ -17,3 +18,4 @@ public class PlayerInteractCabin : MonoBehaviour
         }
     }
 }
+
