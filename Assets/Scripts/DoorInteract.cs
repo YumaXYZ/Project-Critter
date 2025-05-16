@@ -7,6 +7,13 @@ public class DoorInteract : MonoBehaviour
 {
     public void Interact()
     {
-        SceneManager.LoadScene("Test_Interactions2");
+        if(SceneManager.GetActiveScene().name == "Cabin")
+        {
+            SceneManager.LoadScene("Cemetery");
+        }
+        else
+        {
+        SceneManager.LoadScene("Cabin");
+        }
     }
 }
