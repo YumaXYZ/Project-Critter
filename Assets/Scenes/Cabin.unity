@@ -591,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d4e768eb393b6f84d86eba65db7c4e2a, type: 3}
       propertyPath: m_TagString
-      value: interactableObj
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1041582092104720410, guid: d4e768eb393b6f84d86eba65db7c4e2a, type: 3}
       propertyPath: m_TagString
