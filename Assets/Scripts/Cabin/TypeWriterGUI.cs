@@ -4,7 +4,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TypeWriterUI : MonoBehaviour
+public class TypeWriterGUI : MonoBehaviour
 {
     public Text TextComponent;
     private float timePerChar = 0.05f;

@@ -7,13 +7,13 @@ public class DoorInteract : MonoBehaviour
 {
     public void Interact()
     {
-        if(SceneManager.GetActiveScene().name == "Cabin")
+        if(SceneManager.GetActiveScene().name == "Cabin 1")
         {
             SceneManager.LoadScene("Cemetery");
         }
         else
         {
-        SceneManager.LoadScene("Cabin");
+        SceneManager.LoadScene("Cabin 1");
         }
     }
 }
