@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjInteractable : MonoBehaviour
 {
+    [TextArea]
     public string interactionMsg = "¿Qué es esto?";
 
     public string GetMessage()

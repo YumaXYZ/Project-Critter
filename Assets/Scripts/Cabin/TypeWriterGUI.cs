@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class TypeWriterGUI : MonoBehaviour
 {
-    public Text TextComponent;
+    public TextMeshProUGUI TextComponent;
     private float timePerChar = 0.05f;
-    public float timeAfterFinished = 2f; // tiempo en segundos que dura el mensaje después de acabar de escribirse
+    public float timeAfterFinished = 2f;
 
     private string currentMessage = null;
     private float timer = 0;
@@ -16,15 +15,39 @@ public class TypeWriterGUI : MonoBehaviour
     private float finishedDisplayTimer = 0f;
     private bool messageFinished = false;
 
+    public GameObject pause;
+    public GameObject player;
+    public GameObject interactuableTextCanvas;
+
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!messageFinished && currentMessage != null)
+            {
+                TextComponent.text = currentMessage;
+                charIndex = currentMessage.Length;
+                currentMessage = null;
+                messageFinished = true;
+                finishedDisplayTimer = 10f;
+            }
+            else if (messageFinished)
+            {
+                ClearMessage();
+            }
+        }
+
         if (string.IsNullOrEmpty(currentMessage))
         {
             if (messageFinished)
             {
-                finishedDisplayTimer -= Time.deltaTime;
+                finishedDisplayTimer -= Time.unscaledDeltaTime;
                 if (finishedDisplayTimer <= 0)
                 {
+                    Time.timeScale = 1f;
+                    pause.GetComponent<PauseManager>().allowPauseInput = true;
+                    player.GetComponent<PlayerInteract>().allowInteraction = true;
+                    interactuableTextCanvas.SetActive(true);
                     gameObject.SetActive(false);
                     messageFinished = false;
                 }
@@ -32,7 +55,7 @@ public class TypeWriterGUI : MonoBehaviour
             return;
         }
 
-        timer -= Time.deltaTime;
+        timer -= Time.unscaledDeltaTime;
         if (timer <= 0)
         {
             timer += timePerChar;
@@ -52,18 +75,28 @@ public class TypeWriterGUI : MonoBehaviour
 
     public void ShowMessage(string messageToShow)
     {
+        Time.timeScale = 0f;
+        pause.GetComponent<PauseManager>().allowPauseInput = false;
+        player.GetComponent<PlayerInteract>().allowInteraction = false;
+        interactuableTextCanvas.SetActive(false);
+
         currentMessage = messageToShow;
         charIndex = 0;
         TextComponent.text = "";
         messageFinished = false;
         finishedDisplayTimer = 0f;
+        timer = 0f;
 
         gameObject.SetActive(true);
     }
 
-    
     public void ClearMessage()
     {
+        Time.timeScale = 1f;
+        pause.GetComponent<PauseManager>().allowPauseInput = true;
+        player.GetComponent<PlayerInteract>().allowInteraction = true;
+        interactuableTextCanvas.SetActive(true);
+
         currentMessage = null;
         TextComponent.text = "";
         messageFinished = false;

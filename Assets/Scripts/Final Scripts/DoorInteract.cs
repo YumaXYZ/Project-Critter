@@ -1,19 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DoorInteract : MonoBehaviour
 {
+    [Header("IDs de llaves necesarias (mínimo una)")]
+    public string[] requiredKeyIDs;
+
+    [Header("Nombre de la escena a cargar")]
+    public string sceneToLoad;
+
+    public GameObject canvas;
+
     public void Interact()
     {
-        if(SceneManager.GetActiveScene().name == "Cabin 1")
+        if (HasAllRequiredKeys())
         {
-            SceneManager.LoadScene("Cemetery");
+            SceneManager.LoadScene(sceneToLoad);
+            Time.timeScale = 1f;
+            canvas.SetActive(false);
         }
-        else
+        
+        
+    }
+
+    private bool HasAllRequiredKeys()
+    {
+        foreach (string keyID in requiredKeyIDs)
         {
-        SceneManager.LoadScene("Cabin 1");
+            if (!GameState.Instance.HasKey(keyID))
+            {
+                return false;
+            }
         }
+        return true;
     }
 }

@@ -15,6 +15,8 @@ public class PauseManager : MonoBehaviour
 
     private static PauseManager instance;
 
+    public bool allowPauseInput = true;
+
     void Awake()
     {
         if (instance == null)
@@ -42,6 +44,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
+        if (!allowPauseInput) return;
         // obtener nombre de escena actual
         string currentScene = SceneManager.GetActiveScene().name;
 
