@@ -474,8 +474,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84887fca25be88e4da02d53ae6b20021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextComponent: {fileID: 1659590785}
+  TextComponent: {fileID: 0}
   timeAfterFinished: 2
+  pause: {fileID: 0}
+  player: {fileID: 0}
+  interactuableTextCanvas: {fileID: 0}
 --- !u!1 &188844543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,7 +1083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   containerObject: {fileID: 1956350954}
-  playerInteract: {fileID: 1750274994}
+  playerInteract: {fileID: 0}
 --- !u!1 &832474414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,8 +1439,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84887fca25be88e4da02d53ae6b20021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextComponent: {fileID: 1711146139}
+  TextComponent: {fileID: 0}
   timeAfterFinished: 2
+  pause: {fileID: 0}
+  player: {fileID: 0}
+  interactuableTextCanvas: {fileID: 0}
 --- !u!114 &1143229232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1699,6 +1705,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a52c3e3d440ba44a9278f251cd2786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredKeyIDs: []
+  sceneToLoad: 
+  canvas: {fileID: 0}
 --- !u!1 &1433050077 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7977865617136821751, guid: d4e768eb393b6f84d86eba65db7c4e2a, type: 3}
@@ -2221,7 +2230,6 @@ GameObject:
   - component: {fileID: 1750274989}
   - component: {fileID: 1750274988}
   - component: {fileID: 1750274993}
-  - component: {fileID: 1750274994}
   - component: {fileID: 1750274995}
   m_Layer: 0
   m_Name: Capsule
@@ -2370,19 +2378,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   jumpHeight: 6
---- !u!114 &1750274994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1750274986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 731aecf0cadbd1f4f95cbca68af231a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactRange: 1
 --- !u!114 &1750274995
 MonoBehaviour:
   m_ObjectHideFlags: 0

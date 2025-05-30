@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: c81e264f29f7a13489d5699401702c9f
+guid: a45b582d7f6d1ef449d105cb24c44a48
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cave
+    second: {fileID: 2100000, guid: 29090750158feaf43baef195a8f01ebb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tunnel
+    second: {fileID: 2100000, guid: a9784485ed322854ca07b846efb7ba40, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
