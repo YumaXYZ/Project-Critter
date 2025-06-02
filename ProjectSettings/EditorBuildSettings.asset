@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test/Init.unity
     guid: 13077239d2cfb6e4fba3be4b3903747d
   - enabled: 1
@@ -18,9 +18,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Cabin.unity
     guid: d27ff26ac5ec01f409cc40477cd606ce
   - enabled: 1
+    path: Assets/Scenes/Test/Mausoleum.unity
+    guid: d317c3a56e9d1a84dbccfbb98b5528ef
+  - enabled: 1
     path: Assets/Scenes/Test/CemeteryTest.unity
     guid: 4d7ee6f8348a01d4f9582f2cd5269477
   - enabled: 1
     path: Assets/Scenes/Test/CabinTest.unity
     guid: 889d9ebd60324e54cb1e6a5eff5e9af0
+  - enabled: 1
+    path: Assets/Scenes/Test/Cementery2.unity
+    guid: 025825e01fc306d41bdc95d717e2aaf1
   m_configObjects: {}

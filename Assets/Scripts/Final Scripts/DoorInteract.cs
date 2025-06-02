@@ -12,14 +12,19 @@ public class DoorInteract : MonoBehaviour
     public GameObject canvas;
 
     public void Interact()
+{
+    if (HasAllRequiredKeys())
     {
-        if (HasAllRequiredKeys())
+        SceneManager.LoadScene(sceneToLoad);
+        Time.timeScale = 1f;
+
+        if (canvas != null)
         {
-            SceneManager.LoadScene(sceneToLoad);
-            Time.timeScale = 1f;
             canvas.SetActive(false);
         }
     }
+}
+
 
     private bool HasAllRequiredKeys()
     {

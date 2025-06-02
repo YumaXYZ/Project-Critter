@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class KeyPickup : MonoBehaviour
 {
@@ -11,9 +12,12 @@ public class KeyPickup : MonoBehaviour
     [Header("Objeto en el inventario (icono u objeto UI)")]
     public GameObject inventoryIcon;
 
-    void Start()
+    IEnumerator Start()
     {
-        // Si ya la tiene, desactiva del mundo y activa en inventario
+        // Espera hasta que GameState.Instance esté disponible
+        yield return new WaitUntil(() => GameState.Instance != null);
+
+        // Si ya la tiene, desactiva el modelo y activa el ícono de inventario
         if (GameState.Instance.HasKey(keyID))
         {
             if (keyModel != null) keyModel.SetActive(false);

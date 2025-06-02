@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredKeyIDs:
   - cemetery
-  sceneToLoad: Cemetery2
+  sceneToLoad: Cementery2
   canvas: {fileID: 671245389}
 --- !u!65 &70942827
 BoxCollider:
