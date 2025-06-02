@@ -19,8 +19,6 @@ public class DoorInteract : MonoBehaviour
             Time.timeScale = 1f;
             canvas.SetActive(false);
         }
-        
-        
     }
 
     private bool HasAllRequiredKeys()
