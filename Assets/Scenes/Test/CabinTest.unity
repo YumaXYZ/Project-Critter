@@ -2727,7 +2727,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2748,6 +2748,7 @@ MonoBehaviour:
   requiredKeyIDs: []
   sceneToLoad: CemeteryTest
   canvas: {fileID: 8156472}
+  itemAudio: {fileID: 8300000, guid: 7ab94a6e1116b454d9db02a48ffd444e, type: 3}
 --- !u!114 &1206219393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2971,6 +2972,7 @@ MonoBehaviour:
   keyID: cemetery
   keyModel: {fileID: 1430011527}
   inventoryIcon: {fileID: 0}
+  itemAudio: {fileID: 8300000, guid: 5dc50bf1105652a48a19efe37cad74ee, type: 3}
 --- !u!114 &1430011530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3245,6 +3247,10 @@ PrefabInstance:
       value: Collect the three medallions in the cemetery to open the mausoleum door.
         I left the key to open the cemetery door on the key hanger.
       objectReference: {fileID: 0}
+    - target: {fileID: 9130522933286628789, guid: 47e4c9d47a815104a9587505106fc864, type: 3}
+      propertyPath: itemAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 2f2a44449b547254bbf9760b765dda07, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -9,21 +9,27 @@ public class DoorInteract : MonoBehaviour
     [Header("Nombre de la escena a cargar")]
     public string sceneToLoad;
 
+    [Header("Canvas sobre el que muestra el texto")]
     public GameObject canvas;
+    
+    [Header("Audio del item")]
+    public AudioClip itemAudio;
+
 
     public void Interact()
-{
-    if (HasAllRequiredKeys())
     {
-        SceneManager.LoadScene(sceneToLoad);
-        Time.timeScale = 1f;
-
-        if (canvas != null)
+        if (HasAllRequiredKeys())
         {
-            canvas.SetActive(false);
+            AudioSource.PlayClipAtPoint(itemAudio, Camera.main.transform.position, 1.0f);
+            SceneManager.LoadScene(sceneToLoad);
+            Time.timeScale = 1f;
+
+            if (canvas != null)
+            {
+                canvas.SetActive(false);
+            }
         }
     }
-}
 
 
     private bool HasAllRequiredKeys()

@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class ReadNote : MonoBehaviour
 {
+    [Header("Texto que se va a enseñar")]
     public GameObject pickUpText;
-    public bool allowInput; 
+    
+    private bool allowInput; 
+
+    [Header("Audio del item")]
+    public AudioClip itemAudio;
 
     void Start()
     {
@@ -18,6 +23,7 @@ public class ReadNote : MonoBehaviour
     {
         if (allowInput)
         {
+            AudioSource.PlayClipAtPoint(itemAudio, Camera.main.transform.position, 1.0f);
             allowInput = false;
             pickUpText.SetActive(true);
             Time.timeScale = 0f;

@@ -290,6 +290,7 @@ MonoBehaviour:
   - cemetery
   sceneToLoad: Cementery2
   canvas: {fileID: 671245389}
+  itemAudio: {fileID: 8300000, guid: 7ab94a6e1116b454d9db02a48ffd444e, type: 3}
 --- !u!65 &70942827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -413,7 +414,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyID: houseKey
   keyModel: {fileID: 75847675}
-  inventoryIcon: {fileID: 1078045714}
+  inventoryIcon: {fileID: 0}
+  itemAudio: {fileID: 8300000, guid: 5dc50bf1105652a48a19efe37cad74ee, type: 3}
 --- !u!64 &75847678
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1583,6 +1585,7 @@ MonoBehaviour:
   - houseKey
   sceneToLoad: CabinTest
   canvas: {fileID: 671245389}
+  itemAudio: {fileID: 8300000, guid: 7ab94a6e1116b454d9db02a48ffd444e, type: 3}
 --- !u!114 &388872844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7236,6 +7239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Notes
       objectReference: {fileID: 0}
+    - target: {fileID: 9130522933286628789, guid: 47e4c9d47a815104a9587505106fc864, type: 3}
+      propertyPath: itemAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 2f2a44449b547254bbf9760b765dda07, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

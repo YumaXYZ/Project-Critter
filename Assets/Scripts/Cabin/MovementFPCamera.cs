@@ -43,6 +43,7 @@ public class MovementFPCamera : MonoBehaviour
     {
         UpdateMouse();
         UpdateMove();
+        
     }
 
     void UpdateMouse()
@@ -74,11 +75,6 @@ public class MovementFPCamera : MonoBehaviour
         Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * Speed + Vector3.up * velocityY;
 
         controller.Move(velocity * Time.deltaTime);
-
-        if (isGrounded && Input.GetButtonDown("Jump"))
-        {
-            velocityY = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
 
         if (isGrounded! && controller.velocity.y < -1f)
         {
