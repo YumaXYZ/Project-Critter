@@ -7,7 +7,7 @@ public class PlayerInteractionCabin : MonoBehaviour
 {
     public float interactionRange = 2f;
     public string targetTag = "interactableObj";
-    public TypeWriterUI textBoxUI;
+    public TypeWriterGUI textBoxUI;
 
     void Update()
     {

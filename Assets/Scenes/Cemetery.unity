@@ -1384,7 +1384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 388872840}
   - component: {fileID: 388872842}
-  - component: {fileID: 388872841}
+  - component: {fileID: 388872843}
   m_Layer: 0
   m_Name: Door trigger
   m_TagString: Untagged
@@ -1407,18 +1407,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 737018623}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &388872841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388872839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a52c3e3d440ba44a9278f251cd2786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &388872842
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1440,6 +1428,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9192138, y: 2.2067554, z: 0.9466963}
   m_Center: {x: 0.31041026, y: 0.6033776, z: -0.02665186}
+--- !u!114 &388872843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388872839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a52c3e3d440ba44a9278f251cd2786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &393046654
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,8 +3613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85e9351dc1f49864cb072de66fe6b7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  containerObject: {fileID: 1944711878}
-  playerInteract: {fileID: 1361499027}
 --- !u!1 &1239363882
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,10 +3968,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1361499021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 731aecf0cadbd1f4f95cbca68af231a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 303d3441db1efc349bdeca674503c34e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 1
+  textBoxGUI: {fileID: 685731864}
+  interactRange: 2
 --- !u!1 &1380278731
 GameObject:
   m_ObjectHideFlags: 0
