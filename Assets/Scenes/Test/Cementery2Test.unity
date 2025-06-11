@@ -2223,6 +2223,7 @@ MonoBehaviour:
   keyID: medalion3
   keyModel: {fileID: 579888577}
   inventoryIcon: {fileID: 0}
+  itemAudio: {fileID: 8300000, guid: b6bbf651bc828e245a0ea2329c4ad672, type: 3}
 --- !u!114 &579888580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4385,6 +4386,7 @@ MonoBehaviour:
   keyID: medalion2
   keyModel: {fileID: 1148386568}
   inventoryIcon: {fileID: 0}
+  itemAudio: {fileID: 8300000, guid: b6bbf651bc828e245a0ea2329c4ad672, type: 3}
 --- !u!114 &1148386571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6763,6 +6765,7 @@ MonoBehaviour:
   keyID: medalion1
   keyModel: {fileID: 1808288274}
   inventoryIcon: {fileID: 0}
+  itemAudio: {fileID: 8300000, guid: b6bbf651bc828e245a0ea2329c4ad672, type: 3}
 --- !u!114 &1808288277
 MonoBehaviour:
   m_ObjectHideFlags: 0

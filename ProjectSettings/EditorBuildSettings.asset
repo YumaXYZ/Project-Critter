@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Test/Init.unity
     guid: 13077239d2cfb6e4fba3be4b3903747d
   - enabled: 1
-    path: Assets/Scenes/Test/MainMenu.unity
+    path: Assets/Scenes/Test/MainMenuTest.unity
     guid: 77857a2b125383143a141aa86177d063
   - enabled: 0
     path: Assets/Scenes/Cemetery.unity
@@ -24,9 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test/CabinTest.unity
     guid: 889d9ebd60324e54cb1e6a5eff5e9af0
   - enabled: 1
-    path: Assets/Scenes/Test/Cementery2.unity
+    path: Assets/Scenes/Test/Cementery2Test.unity
     guid: 025825e01fc306d41bdc95d717e2aaf1
   - enabled: 1
-    path: Assets/Scenes/Test/Mausoleum.unity
+    path: Assets/Scenes/Test/MausoleumTest.unity
     guid: d317c3a56e9d1a84dbccfbb98b5528ef
   m_configObjects: {}

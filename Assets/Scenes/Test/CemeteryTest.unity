@@ -414,6 +414,7 @@ MonoBehaviour:
   keyID: houseKey
   keyModel: {fileID: 75847675}
   inventoryIcon: {fileID: 1078045714}
+  itemAudio: {fileID: 8300000, guid: b6bbf651bc828e245a0ea2329c4ad672, type: 3}
 --- !u!64 &75847678
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7352,6 +7353,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Notes
       objectReference: {fileID: 0}
+    - target: {fileID: 9130522933286628789, guid: 47e4c9d47a815104a9587505106fc864, type: 3}
+      propertyPath: openSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 06e66fbd40f5a14488f3a996447b29c1, type: 3}
+    - target: {fileID: 9130522933286628789, guid: 47e4c9d47a815104a9587505106fc864, type: 3}
+      propertyPath: closeSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 06e66fbd40f5a14488f3a996447b29c1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
