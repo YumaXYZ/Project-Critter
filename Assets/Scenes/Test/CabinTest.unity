@@ -2971,6 +2971,7 @@ MonoBehaviour:
   keyID: cemetery
   keyModel: {fileID: 1430011527}
   inventoryIcon: {fileID: 0}
+  itemAudio: {fileID: 8300000, guid: b6bbf651bc828e245a0ea2329c4ad672, type: 3}
 --- !u!114 &1430011530
 MonoBehaviour:
   m_ObjectHideFlags: 0

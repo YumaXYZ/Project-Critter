@@ -12,6 +12,9 @@ public class KeyPickup : MonoBehaviour
     [Header("Objeto en el inventario (icono u objeto UI)")]
     public GameObject inventoryIcon;
 
+    [Header("Audio del item")]
+    public AudioClip itemAudio;
+
     IEnumerator Start()
     {
         // Espera hasta que GameState.Instance esté disponible
@@ -31,6 +34,7 @@ public class KeyPickup : MonoBehaviour
 
     public void Interact()
     {
+        AudioSource.PlayClipAtPoint(itemAudio, Camera.main.transform.position, 1.0f);
         if (!GameState.Instance.HasKey(keyID))
         {
             GameState.Instance.AddKey(keyID);
