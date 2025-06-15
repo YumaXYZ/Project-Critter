@@ -176,39 +176,48 @@ public class MainMenuManager : MonoBehaviour
 
     void LoadPlayerInitialData()
     {
-        SetMainMenuStatusText($"Welcome, {SupabaseManager.Instance.currentUsername}!"); // mientras carga se mostraría 'Guest' como username
+        SetMainMenuStatusText($"Welcome, {SupabaseManager.Instance.currentUsername}!");
 
-        StartCoroutine(SupabaseManager.Instance.LoadGameData(
-            (jsonData) =>
-            { // jsonData here is the raw JSON string of GameSaveData
-                if (string.IsNullOrEmpty(jsonData) || jsonData == "{}")
+        StartCoroutine(SupabaseManager.Instance.LoadGameDataCoroutine(
+            (loadedGameSaveData) => // <--- ¡CAMBIO AQUÍ! Ahora el parámetro es GameSaveData
+            {
+                // Ahora, loadedGameSaveData es un objeto GameSaveData
+                // Puedes comprobar si es null o si es el objeto por defecto/vacío que se pasa en caso de no encontrar datos.
+                
+                // Si SupabaseManager.LoadGameDataCoroutine pasa un 'new GameSaveData()' cuando no hay guardado,
+                // entonces 'loadedGameSaveData' no será null. Puedes comprobar su contenido.
+                if (loadedGameSaveData == null || loadedGameSaveData.currentSceneName == "") // Comprobar si es un guardado "vacío" o nulo
                 {
-                    SetMainMenuStatusText($"Welcome, {SupabaseManager.Instance.currentUsername}!");
+                    SetMainMenuStatusText($"Welcome, {SupabaseManager.Instance.currentUsername}! (No saved data found or empty save)");
+                    Debug.Log("MainMenuManager: No valid saved game data found. User logs in for the first time or save is empty.");
                 }
                 else
                 {
-                    // Optionally parse the GameSaveData to show specific info, e.g., last played scene
-                    // GameSaveData loadedSave = JsonUtility.FromJson<GameSaveData>(jsonData);
-                    // mainMenuStatusText.text = $"Welcome back, Operator! Last in: {loadedSave.currentSceneName}";
-                    SetMainMenuStatusText($"Welcome back, {SupabaseManager.Instance.currentUsername}!");
+                    // Los datos de guardado se han cargado correctamente.
+                    // Accede a sus propiedades directamente.
+                    SetMainMenuStatusText($"Welcome back, {SupabaseManager.Instance.currentUsername}! Last scene: {loadedGameSaveData.currentSceneName}");
+                    Debug.Log($"MainMenuManager: Loaded game data. Last scene: {loadedGameSaveData.currentSceneName}");
+                    
+                    // Ahora, si el GameState necesita esta data para cambiar de escena,
+                    // probablemente ya lo gestiona llamando a GameState.Instance.LoadCollectedKeysFromSaveData()
+                    // desde SupabaseManager.LoadGame, que ya tiene acceso a SupabaseManager.Instance.currentGameSaveData.
+                    // No necesitas hacer JsonUtility.FromJson aquí, ya tienes el objeto.
                 }
             },
             (error) =>
             {
-                mainMenuStatusText.text = "Welcome, {SupabaseManager.Instance.currentUsername}! (No saved data detected)";
-                Debug.LogWarning("Could not load initial player data: " + error);
+                mainMenuStatusText.text = $"Welcome, {SupabaseManager.Instance.currentUsername}! (Error loading saved data)";
+                Debug.LogWarning("MainMenuManager: Could not load initial player data: " + error);
 
-                // se el PerformAuth... limpia la sesión por un error al actualizar la sesión (refresh) --> redirige al logIn
                 if (string.IsNullOrEmpty(SupabaseManager.Instance.GetCurrentUserId()))
                 {
-                    Debug.Log("User session expired or invalid. Redirecting to login.");
+                    Debug.Log("MainMenuManager: User session expired or invalid. Redirecting to login.");
                     ShowPanel(loginPanel);
                     SetMainMenuStatusText("Your session has expired. Please log in.");
                 }
             }
         ));
     }
-    
      public void LogoutAndShowLogin()
     {
         mainMenuStatusText.text = "Disconnecting session...";

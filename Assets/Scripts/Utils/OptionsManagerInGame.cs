@@ -4,60 +4,48 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // Make sure TextMeshPro Essentials are imported
 
-public class OptionsManager : MonoBehaviour
+public class OptionsManagerInGame : MonoBehaviour
 {
-    [Header("Options Panel Elements")]
-    public Slider volumeSlider;         
-    public TMP_Text volumeValueText;    
-    public Button optionsBackButton;    
-
-    [Header("Screen Mode Elements")]
+    [Header("UI Elements")]
+    public Slider volumeSlider;
+    public TMP_Text volumeValueText;
     public TMP_Dropdown screenModeDropdown;
 
     [Header("Language Elements")]
     public TMP_Dropdown languageDropdown; 
 
-    // References to texts that need to be localized within this script
     [Header("Localized Texts (in this script)")]
     public TMP_Text volumeLabelText;     
     public TMP_Text screenModeLabelText; 
     public TMP_Text languageLabelText;   
     public TMP_Text optionsTitleText;    
-
-    [Header("Managers")]
-    public MainMenuManager mainMenuManager;
+    
+    private PauseManager pauseManagerInstance;
 
     void Awake()
     {
-        // Add listeners for UI elements. These connect UI actions to C# methods.
+        pauseManagerInstance = FindObjectOfType<PauseManager>();
+        if (pauseManagerInstance == null)
+        {
+            Debug.LogWarning("OptionsManagerInGame: No se encontró una instancia de PauseManager en la escena. Esto puede ser normal si no lo usas o si el panel de opciones no se activa a través de él.");
+        }
+
         if (volumeSlider != null)
         {
             volumeSlider.onValueChanged.AddListener(OnVolumeSliderChanged);
         }
 
-        if (optionsBackButton != null)
-        {
-            optionsBackButton.onClick.AddListener(OnOptionsBackButtonClicked);
-        }
-
-        // Listener for the Screen Mode Dropdown
         if (screenModeDropdown != null)
         {
             screenModeDropdown.onValueChanged.AddListener(OnScreenModeChanged);
-            // Options will be initialized in OnEnable/SetupOptionsPanel
+            // Options will be initialized in OnEnable/SetupOptionsPanel to ensure localized options
         }
 
         // NEW: Listener for the Language Dropdown
         if (languageDropdown != null)
         {
             languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
-            // Options will be initialized in OnEnable/SetupOptionsPanel
-        }
-
-        // Basic check to ensure the MainMenuManager reference is set.
-        if (mainMenuManager == null)
-        {
-            Debug.LogError("OptionsManager: MainMenuManager reference is not set! Please assign it in the Inspector.");
+            // Options will be initialized in OnEnable/SetupOptionsPanel to ensure localized options
         }
     }
 
@@ -78,14 +66,9 @@ public class OptionsManager : MonoBehaviour
 
     void OnDestroy()
     {
-        // Clean up listeners when the object is destroyed
         if (volumeSlider != null)
         {
             volumeSlider.onValueChanged.RemoveListener(OnVolumeSliderChanged);
-        }
-        if (optionsBackButton != null)
-        {
-            optionsBackButton.onClick.RemoveListener(OnOptionsBackButtonClicked);
         }
         if (screenModeDropdown != null)
         {
@@ -98,17 +81,12 @@ public class OptionsManager : MonoBehaviour
         }
     }
 
-    public void SetupOptionsPanel()
-    {
-        LoadVolumeSettings();
-        LoadScreenModeSettings();
-    }
-
+    /// <summary>
+    /// Initializes the options for the Screen Mode Dropdown using localized texts.
+    /// </summary>
     private void InitializeScreenModeDropdown()
     {
-      if (screenModeDropdown != null && LocalizationManager.Instance != null)
-        {
-            // Temporarily remove listener to prevent recursive calls if setting value triggers OnScreenModeChanged
+         // Temporarily remove listener to prevent recursive calls if setting value triggers OnScreenModeChanged
             screenModeDropdown.onValueChanged.RemoveListener(OnScreenModeChanged);
 
             screenModeDropdown.ClearOptions();
@@ -122,11 +100,10 @@ public class OptionsManager : MonoBehaviour
 
             // Re-add listener
             screenModeDropdown.onValueChanged.AddListener(OnScreenModeChanged);
-        }
     }
 
     /// <summary>
-    /// Initializes the options for the Language Dropdown and sets the current language.
+    /// NEW: Initializes the options for the Language Dropdown and sets the current language.
     /// </summary>
     private void InitializeLanguageDropdown()
     {
@@ -167,23 +144,34 @@ public class OptionsManager : MonoBehaviour
         }
     }
 
+    public void SetupOptionsPanel()
+    {
+        LoadVolumeSettings();
+        LoadScreenModeSettings();
+        // Ensure dropdowns are initialized/re-initialized with localized options
+        InitializeScreenModeDropdown();
+        InitializeLanguageDropdown();
+    }
+
     void OnVolumeSliderChanged(float value)
     {
         AudioListener.volume = value;
         UpdateVolumeSliderAndText(value);
-        // Save immediately as user adjusts slider
         SaveVolumeSettings();
     }
 
     void OnScreenModeChanged(int index)
     {
-        bool isFullscreen = (index == 0); // 0 = Fullscreen, 1 = Windowed
+        bool isFullscreen = (index == 0); // Assuming 0 = Fullscreen, 1 = Windowed
         Screen.fullScreen = isFullscreen;
         Debug.Log($"Screen Mode set to: {(isFullscreen ? "Fullscreen" : "Windowed")}");
-        // Save immediately when dropdown value changes
         SaveScreenModeSettings();
     }
 
+    /// <summary>
+    /// NEW: Called when the language selection in the dropdown changes.
+    /// </summary>
+    /// <param name="index">The index of the selected language in the dropdown.</param>
     void OnLanguageChanged(int index)
     {
         List<string> languageCodes = new List<string> { "en", "es" }; // Internal language codes
@@ -194,34 +182,18 @@ public class OptionsManager : MonoBehaviour
             {
                 LocalizationManager.Instance.LoadLanguage(selectedLanguageCode);
                 Debug.Log($"Language changed to: {selectedLanguageCode}");
-                // Re-initialize screen mode dropdown options as their text might have changed
+                // Re-initialize dropdowns whose options' texts might have changed
                 //InitializeScreenModeDropdown();
             }
         }
     }
 
-    void OnOptionsBackButtonClicked()
-    {
-        if (mainMenuManager != null)
-        {
-            // Save settings before returning to main menu
-            SaveVolumeSettings();
-            SaveScreenModeSettings();
-            // Language setting is saved immediately in OnLanguageChanged via LocalizationManager
-            mainMenuManager.ShowPanel(mainMenuManager.menuPanel);
-        }
-        else
-        {
-            Debug.LogError("MainMenuManager is not assigned!");
-        }
-    }
-
     void LoadVolumeSettings()
     {
-        float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 1f); // Default to 1.0 if no value saved
+        float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
         if (volumeSlider != null) volumeSlider.value = savedVolume;
-        AudioListener.volume = savedVolume; // Apply the volume to the game
-        UpdateVolumeSliderAndText(savedVolume); // Update the visual text representation
+        AudioListener.volume = savedVolume;
+        UpdateVolumeSliderAndText(savedVolume);
         Debug.Log($"Volume settings loaded: {savedVolume}");
     }
 
@@ -229,7 +201,7 @@ public class OptionsManager : MonoBehaviour
     {
         int savedScreenModeIndex = PlayerPrefs.GetInt("ScreenModeIndex", 0);
         if (screenModeDropdown != null) screenModeDropdown.value = savedScreenModeIndex;
-        Screen.fullScreen = (savedScreenModeIndex == 0); // Apply on start
+        Screen.fullScreen = (savedScreenModeIndex == 0);
         Debug.Log($"Screen Mode selected: {(Screen.fullScreen ? "Fullscreen" : "Windowed")}");
     }
 
@@ -252,12 +224,11 @@ public class OptionsManager : MonoBehaviour
         if (volumeValueText != null) volumeValueText.text = $"{(volume * 100):F0}";
     }
 
-    
     private void UpdateLocalizedTexts()
     {
         if (LocalizationManager.Instance == null)
         {
-            Debug.LogWarning("LocalizationManager.Instance is null. Cannot update localized texts in OptionsManager.");
+            Debug.LogWarning("LocalizationManager.Instance is null. Cannot update localized texts in OptionsManagerInGame.");
             return;
         }
 
@@ -275,7 +246,7 @@ public class OptionsManager : MonoBehaviour
         }
         if (optionsTitleText != null)
         {
-            optionsTitleText.text = LocalizationManager.Instance.GetLocalizedValue("capSettings"); // Assuming "SETTINGS" title
+            optionsTitleText.text = LocalizationManager.Instance.GetLocalizedValue("pause"); // Assuming "-PAUSE-" title
         }
 
         // Re-initialize dropdowns whose options' texts are localized

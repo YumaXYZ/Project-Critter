@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,33 +15,12 @@ public class Achievement
     public DateTime unlockedDate; // fecha cuando desbloqueó el logro
 
     // constructor
-    public Achievement(string id, string title, string description, string icon = null)
+    public Achievement(string id, string title, string description)
     {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.icon = icon;
-        this.isUnlocked = false; // siempre empieza como bloqueado
-        this.unlockedDate = DateTime.MinValue;
-    }
-
-    // IMPORTANT: JsonUtility has issues with DateTime.
-    // For saving/loading, we convert DateTime to a string.
-    public string GetUnlockedDateString()
-    {
-        return unlockedDate.ToString("o"); // "o" for round-trip format
-    }
-
-    public void SetUnlockedDateFromString(string dateString)
-    {
-        if (DateTime.TryParse(dateString, out DateTime date))
-        {
-            unlockedDate = date;
-        }
-        else
-        {
-            unlockedDate = DateTime.MinValue; // Fallback for parsing errors
-        }
+        this.isUnlocked = false;
     }
 
     // Helper method to load the Sprite at runtime
@@ -70,8 +50,6 @@ public class SupabaseUser
 public class SupabaseAuthResponse
 {
     public string access_token;
-    public string token_type;
-    public int expires_in;
     public string refresh_token;
     public SupabaseUser user;
 }
@@ -80,58 +58,45 @@ public class SupabaseAuthResponse
 public class PlayerDataEntry
 {
     public string id; // auth.uid()
-    public string save_data; // el jsonb
+    public GameSaveData save_data; // el jsonb
     public string last_played; // timestamptz 
-}
 
-[System.Serializable]
-public class PlayerDataResponseWrapper // For deserializing the array response
-{
-    public PlayerDataEntry[] data; // JsonUtility requires this wrapper for top-level arrays
+    public override string ToString()
+    {
+        return $"  PlayerDataEntry: ID='{id}', SaveData: {save_data?.ToString() ?? "null"}, LastPlayed='{last_played}'";
+    }
 }
 
 [System.Serializable]
 public class AchievementEntry
 {
-    public string id; // userId
-    public string achievement_name;
-    public bool is_unlocked;
-    public string unlocked_at; // timestamptz 
-}
-
-[System.Serializable]
-public class AchievementsResponseWrapper
-{
-    public AchievementEntry[] data;
-}
-
-// OBJETO ÚNICO EN INVENTARIO
-[System.Serializable]
-public class InventoryItem
-{
-    public string itemId;    // ejemplo: 'cabinKey'
-    
-    public InventoryItem(string id)
-    {
-        itemId = id;
-    }
+    public string id { get; set; } // id del usuario
+    public string achievement_name { get; set; } // ID del logro
+    public bool is_unlocked { get; set; }
+    public DateTime unlocked_at { get; set; } // timestamp con timezone
 }
 
 // EL CONTENIDO DEL JSONB, la save_data del player_data
 [System.Serializable]
 public class GameSaveData
 {
-    // posición del personaje
-    public float playerX;
+     public float playerX;
     public float playerY;
-    // escena 
-    public string currentSceneName; // ejemplo: 'Cemetery'
-    public List<InventoryItem> inventory; // lista de items en el inventario
-                                          // public int score
-                                          // public int timePlayed
+    public float playerZ;
+    public string currentSceneName;
+    public List<string> collectedKeyIDs;
+
     public GameSaveData()
     {
-        // se inicializa para evitar NullReferenceException si no hay items
-        inventory = new List<InventoryItem>();
+        playerX = 0f;
+        playerY = 0f;
+        playerZ = 0f;
+        collectedKeyIDs = new List<string>();
+        currentSceneName = "";
+    }
+
+    public override string ToString()
+    {
+        return $"GameSaveData: Scene='{currentSceneName}', Pos=({playerX},{playerY}), Keys={collectedKeyIDs?.Count ?? 0}";
     }
 }

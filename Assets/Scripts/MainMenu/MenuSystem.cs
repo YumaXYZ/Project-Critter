@@ -8,11 +8,23 @@ public class MenuSystem : MonoBehaviour
 {
     [Header("Achievement UI")]
     public GameObject achievementPanel;           
-    public GameObject optionsPanel;           
-    
+    public GameObject optionsPanel;
+    public string FirstGameSceneName = "Cemetery";
+
     public void Play()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+          if (GameState.Instance != null)
+        {
+            // GameState se encarga de todo el flujo de carga,
+            // incluyendo la carga de la escena correcta.
+            GameState.Instance.LoadGameFromSave();
+            Debug.Log("Solicitando cargar partida guardada...");
+        }
+        else
+        {
+            Debug.LogError("MenuSystem: GameState no encontrado. Cargando la primera escena de juego por defecto.");
+            SceneManager.LoadScene(FirstGameSceneName); // Fallback
+        }
     }
 
     public void Achievements()
@@ -40,5 +52,8 @@ public class MenuSystem : MonoBehaviour
     {
         Debug.Log("SALIENDO");
         Application.Quit();
+
+        // para simularlo en UNITY
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }

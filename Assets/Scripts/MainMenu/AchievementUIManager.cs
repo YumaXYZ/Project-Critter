@@ -8,21 +8,20 @@ public class AchievementUIManager : MonoBehaviour
 {
   [Header("UI References")]
     public GameObject achievementPanel;           
-    public Transform achievementListPanel;        // el panel donde saldrán los logros (la cajita)
-    public GameObject achievementItemPrefab;      // AchievementItem prefab
-    public Button achievementsButton;            // el botón que abre el panel de los logros en el main menu
-    public Button closeButton;                   // el closeButton del panel de logros
+    public Transform achievementListPanel;     
+    public GameObject achievementItemPrefab; 
+    public Button achievementsButton;   
+    public Button closeButton;                 
 
     [Header("Achievement Icons")]
-    public Sprite defaultAchievementIcon;        // un icono default
-    public Sprite lockedIcon;                    // icono de candadito o algo
-    public Sprite unlockedIcon;                  // icono de logro desbloqueado
+    public Sprite defaultAchievementIcon;        
+    public Sprite unlockedIcon;                 
 
     private void Start()
     {
         if (achievementsButton != null)
             achievementsButton.onClick.AddListener(ShowAchievementPanel);
-        
+
         if (closeButton != null)
             closeButton.onClick.AddListener(HideAchievementPanel);
 
@@ -55,11 +54,14 @@ public class AchievementUIManager : MonoBehaviour
         {
             List<Achievement> allAchievements = AchievementManager.Instance.GetAllAchievements();
 
-            // Create UI item for each achievement
             foreach (Achievement achievement in allAchievements)
             {
                 CreateAchievementItem(achievement);
             }
+        }
+        else
+        {
+            Debug.LogError("AchievementUIManager: AchievementManager.Instance es nulo. No se pueden cargar los logros.");
         }
     }
 
@@ -72,23 +74,24 @@ public class AchievementUIManager : MonoBehaviour
         }
     }
 
-    private void CreateAchievementItem(Achievement achievement)
+    private void CreateAchievementItem(Achievement achievement) // Ahora recibe un objeto Achievement
     {
-        // Instantiate the achievement item
         GameObject itemObj = Instantiate(achievementItemPrefab, achievementListPanel);
         
-        // Get the UI components (adjust these names to match your prefab structure)
         AchievementItemUI itemUI = itemObj.GetComponent<AchievementItemUI>();
         
         if (itemUI == null)
         {
-            // If no component, find manually
+            Debug.LogWarning($"AchievementUIManager: El prefab '{achievementItemPrefab.name}' no tiene el componente AchievementItemUI. Intentando añadirlo y buscar componentes manualmente.");
             itemUI = itemObj.AddComponent<AchievementItemUI>();
             itemUI.FindUIComponents();
         }
 
-        // Populate the UI with achievement data
-        itemUI.SetupAchievement(achievement, defaultAchievementIcon, 
-                               achievement.isUnlocked ? unlockedIcon : lockedIcon);
+        // Usa el método GetIconSprite() de la clase Achievement
+        Sprite mainIcon = achievement.GetIconSprite(); 
+        if (mainIcon == null) mainIcon = defaultAchievementIcon; // Fallback si no se encuentra el icono
+
+        // PASA DIRECTAMENTE unlockedIcon. El AchievementItemUI decidirá si lo muestra.
+        itemUI.SetupAchievement(achievement, mainIcon, unlockedIcon);
     }
 }

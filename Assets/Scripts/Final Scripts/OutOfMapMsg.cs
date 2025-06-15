@@ -5,16 +5,26 @@ using UnityEngine;
 public class OutOfMapMsg : MonoBehaviour
 {
     public TypeWriterGUI typeWriter;
-    public string mensaje;
+    public string messageLocalizationKey = "outOfMap_text";
 
-    private bool mensajeMostrado = false;
+    private bool messageShown = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !mensajeMostrado)
+        if (other.CompareTag("Player") && !messageShown)
         {
-            typeWriter.ShowMessage(mensaje);
-            mensajeMostrado = true;
+            if (LocalizationManager.Instance != null)
+            {
+                string localizedMessage = LocalizationManager.Instance.GetLocalizedValue(messageLocalizationKey);
+                typeWriter.ShowMessage(localizedMessage);
+            }
+            else
+            {
+                Debug.LogWarning("OutOfMapMsg: LocalizationManager not found! Showing raw key: " + messageLocalizationKey);
+                typeWriter.ShowMessage(messageLocalizationKey); 
+            }
+
+            messageShown = true;
         }
     }
 
@@ -22,7 +32,7 @@ public class OutOfMapMsg : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            mensajeMostrado = false; 
+            messageShown = false;
         }
     }
     

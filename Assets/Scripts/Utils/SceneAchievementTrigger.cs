@@ -22,19 +22,22 @@ public class SceneAchievementTrigger : MonoBehaviour
     // la función que se llama desde cualquier sitio para triggerear un logro
     public void TriggerAchievement()
     {
-        // si era un logro que solo triggereaba una vez por partida y ya ha ocurrido
+        if (AchievementManager.Instance != null && AchievementManager.Instance.IsAchievementUnlocked(achievementId))
+        {
+            Debug.Log($"Achievement '{achievementId}' already unlocked persistently. Skipping trigger.");
+            return; // Ya está desbloqueado, no hacemos nada
+        }
+
+        // Si es un logro de un solo disparo POR SESIÓN Y YA SE DISPARÓ EN ESTA SESIÓN
         if (triggerOnce && hasTriggered) return;
 
-        // se asegura que el AchievementManager existe
         if (AchievementManager.Instance != null)
         {
-            // le dice al manager que desbloquee el logro
             AchievementManager.Instance.UnlockAchievement(achievementId);
-            hasTriggered = true;
+            hasTriggered = true; // Marca que se disparó en esta sesión
         }
         else
         {
-            // si el manager no está en el main menu
             Debug.LogError("Añade el AchievementManager al Main Menu!");
         }
     }

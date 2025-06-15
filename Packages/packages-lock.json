@@ -1,12 +1,5 @@
 {
   "dependencies": {
-    "com.bunny83.simplejson": {
-      "version": "2020.9.182",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
     "com.unity.burst": {
       "version": "1.8.19",
       "depth": 1,
@@ -223,6 +216,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "jillejr.newtonsoft.json-for-unity": {
+      "version": "https://github.com/jilleJr/Newtonsoft.Json-for-Unity.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f2c6cb09817832dccd0600f291053d8d55298ee9"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

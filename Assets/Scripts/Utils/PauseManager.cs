@@ -4,10 +4,12 @@ using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
     public GameObject pauseCanvas; // canvas de pausa, arrastrarlo al inspector
+    public GameObject optionsPanel;
 
     private bool isPaused = false;
 
@@ -16,7 +18,6 @@ public class PauseManager : MonoBehaviour
     private static PauseManager instance;
 
     public bool allowPauseInput = true;
-
     void Awake()
     {
         if (instance == null)
@@ -40,6 +41,15 @@ public class PauseManager : MonoBehaviour
         {
             Debug.LogError("PauseCanvas no asignado en PauseManager");
         }
+
+        if (optionsPanel != null)
+        {
+            optionsPanel.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("OptionsPanel no asignado en PauseManager. Si no lo usas, ignora esto.");
+        }
     }
 
     void Update()
@@ -62,10 +72,8 @@ public class PauseManager : MonoBehaviour
             {
                 isPaused = false;
                 Time.timeScale = 1f;
-                if (pauseCanvas != null)
-                {
-                    pauseCanvas.SetActive(false);
-                }
+                if (pauseCanvas != null) pauseCanvas.SetActive(false);
+                if (optionsPanel != null) optionsPanel.SetActive(false);
             }
         }
     }
@@ -77,18 +85,14 @@ public class PauseManager : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0f; // detiene el tiempo
-            if (pauseCanvas != null)
-            {
-                pauseCanvas.SetActive(true);
-            }
+            if (pauseCanvas != null) pauseCanvas.SetActive(true);
+            if (optionsPanel != null) optionsPanel.SetActive(false);
         }
         else
         {
             Time.timeScale = 1f; // reanudar el tiempo
-            if (pauseCanvas != null)
-            {
-                pauseCanvas.SetActive(false);
-            }
+            if (pauseCanvas != null) pauseCanvas.SetActive(false);
+            if (optionsPanel != null) optionsPanel.SetActive(false);
         }
     }
 
@@ -106,9 +110,36 @@ public class PauseManager : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
-    public void Quit()
+    public void SaveGame()
     {
-        Debug.Log("SALIENDO");
-        Application.Quit();
+        if (GameState.Instance != null)
+        {
+            GameState.Instance.ManualSaveGame();
+            Debug.Log("Game Data Saved! :D");
+        }
+        else
+        {
+            Debug.LogError("Error saving data :(");
+        }
+    }
+
+    // SETTINGS
+    public void OpenSettings()
+    {
+        if (pauseCanvas != null) pauseCanvas.SetActive(false);
+        if (optionsPanel != null)
+        {
+            optionsPanel.SetActive(true); // Muestra el panel de opciones
+        }
+        else
+        {
+            Debug.LogWarning("El panel de opciones no está asignado o es nulo.");
+        }
+    }
+    
+    public void BackToPausePanel()
+    {
+        if (optionsPanel != null) optionsPanel.SetActive(false); 
+        if (pauseCanvas != null) pauseCanvas.SetActive(true); 
     }
 }
