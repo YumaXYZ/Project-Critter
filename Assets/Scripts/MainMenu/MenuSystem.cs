@@ -52,8 +52,5 @@ public class MenuSystem : MonoBehaviour
     {
         Debug.Log("SALIENDO");
         Application.Quit();
-
-        // para simularlo en UNITY
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
